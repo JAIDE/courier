@@ -1,0 +1,31 @@
+[{
+   "info":{
+      "smtpHostname":"smtp.gmail.com",
+      "smtpPort":25,
+      "authentication":true,
+      "username":"peter.sendername@mydomain.com",
+      "password":"XXXXXXX",
+      "fromEMail":"peter.sendername@mydomain.com",
+      "fromSenderName":"Peter Sendername"
+   }
+},{
+   "default":{
+      "smtpHostname":"smtp.gmail.com",
+      "smtpPort":25,
+      "authentication":true,
+      "username":"peter.sendername@mydomain.com",
+      "password":"xxxxxxx",
+      "fromEMail":"peter.sendername@mydomain.com",
+      "fromSenderName":"Peter Sendername"
+   }
+},{
+   "bounce":{
+      "smtpHostname":"smtp.gmail.com",
+      "smtpPort":25,
+      "authentication":true,
+      "username":"peter.sendername@mydomain.com",
+      "password":"xxxxxxx",
+      "fromEMail":"peter.sendername@mydomain.com",
+      "fromSenderName":"Peter Sendername"
+   }
+}]
