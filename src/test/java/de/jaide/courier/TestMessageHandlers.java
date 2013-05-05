@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import de.jaide.courier.email.MessageHandlerEMail;
+import de.jaide.courier.email.TemplateTypeEnum;
 import de.jaide.courier.exception.CourierException;
 
 /**
@@ -46,7 +47,8 @@ public class TestMessageHandlers {
     // Or, alternatively, give it a directory path to load the templates from
     // mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_PATH_FILE, new File("target/classes/email_templates/en/"));
 
-    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_NAME, "signup");
+    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_NAME, "contact_accept");
+    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_TYPE, TemplateTypeEnum.BOTH);
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_FIRSTNAME, "Peter");
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_LASTNAME, "Recipientname");
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_EMAIL, "peter.sendername@mydomain.com");
@@ -75,7 +77,7 @@ public class TestMessageHandlers {
      */
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_FIRSTNAME, "Peter Other");
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_LASTNAME, "Sendername");
-    // mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_EMAIL, "peter-other.sendername@mydomain.com");
+    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_EMAIL, "peter-other.sendername@mydomain.com");
     mappedParameters.put("link", "http://www.jaide.de/projects/notify/confirm?id=456");
 
     List<EmailAttachment> attachments = new ArrayList<EmailAttachment>();

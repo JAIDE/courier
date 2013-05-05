@@ -37,7 +37,8 @@ public class SmtpConfiguration implements JSONAware {
   private String configurationName;
   private String smtpHostname;
   private Integer smtpPort;
-  private boolean authentication;
+  private boolean tls;
+  private boolean ssl;
   private String username;
   private String password;
   private String fromEMail;
@@ -55,18 +56,20 @@ public class SmtpConfiguration implements JSONAware {
    * @param configurationName The name of this configuration.
    * @param smtpHostname The SMTP hostname.
    * @param smtpPort The port of the SMTP server.
-   * @param authentication True, if authentication against the SMTP server is to be done.
+   * @param tls Set or disable the STARTTLS encryption.
+   * @param ssl Sets whether SSL/TLS encryption should be enabled for the SMTP transport upon connection (SMTPS/POPS).
    * @param username The username on the SMTP server.
    * @param password The password of the username on the SMTP server.
    * @param fromEMail The e-mail address to be set as the sender.
    * @param fromSenderName The full name to be set as the sender.
    */
-  public SmtpConfiguration(String configurationName, String smtpHostname, Integer smtpPort, boolean authentication, String username,
+  public SmtpConfiguration(String configurationName, String smtpHostname, Integer smtpPort, boolean tls, boolean ssl, String username,
       String password, String fromEMail, String fromSenderName) {
     this.configurationName = configurationName;
     this.smtpHostname = smtpHostname;
     this.smtpPort = smtpPort;
-    this.authentication = authentication;
+    this.tls = tls;
+    this.ssl = ssl;
     this.username = username;
     this.password = password;
     this.fromEMail = fromEMail;
@@ -128,21 +131,39 @@ public class SmtpConfiguration implements JSONAware {
   }
 
   /**
-   * True if authentication against the SMTP server needs to be done.
+   * True if the STARTTLS encryption is enabled.
    * 
-   * @return True, if authentication against the SMTP server is to be done.
+   * @return True, if STARTTLS needs to be enabled.
    */
-  public boolean isAuthentication() {
-    return authentication;
+  public boolean isTls() {
+    return tls;
   }
 
   /**
-   * Sets the need for authentication against the SMTP server.
+   * Set or disable the STARTTLS encryption.
    * 
-   * @param authentication Set to true if authentication against the SMTP server needs to be done.
+   * @param tls Should be set to true if STARTTLS needs to be enabled.
    */
-  public void setAuthentication(boolean authentication) {
-    this.authentication = authentication;
+  public void setTls(boolean tls) {
+    this.tls = tls;
+  }
+
+  /**
+   * True, if SSL/TLS encryption should be enabled for the SMTP transport upon connection (SMTPS/POPS).
+   * 
+   * @return True, if SSL/TLS encryption should be enabled for the SMTP transport upon connection (SMTPS/POPS).
+   */
+  public boolean isSsl() {
+    return ssl;
+  }
+
+  /**
+   * Sets whether SSL/TLS encryption should be enabled for the SMTP transport upon connection (SMTPS/POPS).
+   * 
+   * @param ssl Should be set to true if SSL/TLS encryption should be enabled for the SMTP transport upon connection (SMTPS/POPS).
+   */
+  public void setSsl(boolean ssl) {
+    this.ssl = ssl;
   }
 
   /**
@@ -230,7 +251,8 @@ public class SmtpConfiguration implements JSONAware {
     Map<String, Object> configuration = new LinkedHashMap<String, Object>();
     configuration.put("smtpHostname", smtpHostname);
     configuration.put("smtpPort", new Integer(smtpPort));
-    configuration.put("authentication", authentication);
+    configuration.put("tls", tls);
+    configuration.put("ssl", ssl);
     configuration.put("username", username);
     configuration.put("password", password);
     configuration.put("fromEMail", fromEMail);
