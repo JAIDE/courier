@@ -10,6 +10,8 @@ With this framework you can:
 * Decide, at run-time, that e-mail X should be sent from a valid reply-to address while e-mail Y should be sent from a bouncing address.
 * Use all of Freemarkers templating toolsets to create your HTML or text-only e-mails.
 * You may (optionally) specify the e-mail headers, the subject line and the body - all decorated with Freemarker code, if needed.
+* Send HTML and a fallback Text-only version of an e-mail.
+* Add attachments.
 
 All templates may reside in different folders, following a clean and pre-defined filename structure:
 
@@ -17,11 +19,15 @@ All templates may reside in different folders, following a clean and pre-defined
       en/ (additional directory level, to separate multi-lingual templates from each other)
         signup_headers.ftl (optional)
         signup_subject.ftl (mandatory)
-        signup_body.ftl (mandatory)
+        signup_body.ftl.html (mandatory, if no .txt version present)
+        signup_body.ftl.txt (mandatory, if no .html version present)
       de/
         signup_headers.ftl (optional)
         signup_subject.ftl (mandatory)
-        signup_body.ftl (mandatory)
+        signup_body.ftl.html (mandatory, if no .txt version present)
+        signup_body.ftl.txt (mandatory, if no .html version present)
+
+Just check out the <a href="https://github.com/JAIDE/courier/blob/master/src/test/java/de/jaide/courier/TestMessageHandlers.java">Test case</a> at to see how this thing works and how easy it is to integrate it into your projects!
 
 Example
 -------
@@ -191,7 +197,7 @@ You're invited to join and implement message handlers yourself - just implement 
 Developed By
 ------------
 
-* Rias A. Sherzad, JAIDE GmbH
+* <a href="http://twitter.com/Riyadh">Rias A. Sherzad</a>, <a href="http://www.jaide.de">JAIDE GmbH</a>
 
 License
 -------
