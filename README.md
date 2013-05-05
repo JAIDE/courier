@@ -75,9 +75,9 @@ The template file for the subject could look like this:
     signup_subject.ftl:
     <#if !recipientFirstname??>Please activate your account<#else>${recipientFirstname}, please activate your account</#if>
 
-The template file for the body content could look like this:
+The template file for the body (Text version) content could look like this:
 
-    signup_body.ftl:
+    signup_body.ftl.txt:
     Hello<#if recipientFirstname != ""> ${recipientFirstname}</#if>,
     
     You have registered a new account on our website but it has not been activated because your e-mail address has not been confirmed yet.
@@ -87,7 +87,21 @@ The template file for the body content could look like this:
     Thanks
     The Team
 
-The header file `PREFIX_headers.ftl` doesn't have to be there, you only have to provide a `PREFIX_subject.ftl` and `PREFIX_body.ftl` template file:
+The template file for the body (HTML version) content could look like this:
+
+    signup_body.ftl.html:
+    <html><body>
+    <b>Hello<#if recipientFirstname != ""> ${recipientFirstname}</#if></b>,
+    
+    You have registered a new account on our website but it has not been activated because your e-mail address has <u>not been confirmed yet</u>.
+    Please <b>activate your account</b> by clicking the following link.
+    Activate account: ${link}
+    
+    Thanks
+    The Team
+    </body></html>
+
+The header file `PREFIX_headers.ftl` doesn't have to be there, you only have to provide a `PREFIX_subject.ftl` and `PREFIX_body.ftl.html` (`PREFIX_body.ftl.txt`) template file:
 
     signup_headers.ftl:
     Reply-To: Peter Replyname <peter.replyname@mydomain.com>
@@ -102,7 +116,8 @@ This will use the SMTP sender configuration specified as "info" in your smtp.jso
        "info":{
           "smtpHostname":"smtp.gmail.com",
           "smtpPort":25,
-          "authentication":true,
+          "tls":true,
+          "ssl":false,
           "username":"info@mydomain.com",
           "password":"XXXXXXX",
           "fromEMail":"info@mydomain.com",
@@ -112,7 +127,8 @@ This will use the SMTP sender configuration specified as "info" in your smtp.jso
        "default":{
           "smtpHostname":"smtp.gmail.com",
           "smtpPort":25,
-          "authentication":true,
+          "tls":true,
+          "ssl":false,
           "username":"peter.sendername@mydomain.com",
           "password":"xxxxxxx",
           "fromEMail":"peter.sendername@mydomain.com",
@@ -122,7 +138,8 @@ This will use the SMTP sender configuration specified as "info" in your smtp.jso
        "bounce":{
           "smtpHostname":"smtp.gmail.com",
           "smtpPort":25,
-          "authentication":true,
+          "tls":true,
+          "ssl":false,
           "username":"no-reply@mydomain.com",
           "password":"xxxxxxx",
           "fromEMail":"no-reply@mydomain.com",
@@ -160,7 +177,7 @@ If you're using Maven to build your project add this framework's Maven dependenc
     <dependency>
       <groupId>de.jaide</groupId>
       <artifactId>courier</artifactId>
-      <version>1.2</version>
+      <version>1.3-SNAPSHOT</version>
     </dependency>
 
 * Note: this framework will show up on Maven Central soon - it's not there yet. The above Maven coordinates might not work as of now, so please build the library yourself and deploy it into your local Maven repository until then by running "mvn install".
@@ -169,7 +186,7 @@ What's next?
 ------------
 
 If/when the need arises we <a href="http://twitter.com/JAIDE">@JAIDE</a> will add additional message handlers, besides the one we added for e-mails, so you can also send templated Apple Push Notifications.
-You're invited to join and implement message handlers yourself - just implement MessageHandler.java for your specific needs and initiate a pull request.
+You're invited to join and implement message handlers yourself - just implement MessageHandler.java for your specific needs and initiate a pull request and we'll check it out.
 
 Developed By
 ------------
