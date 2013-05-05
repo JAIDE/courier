@@ -45,6 +45,13 @@ The following code creates the mapped parameters, containing framework- and temp
     // The prefix of the template files. They need to look like: PREFIX_headers.ftl, PREFIX_subject.ftl and PREFIX_body.ftl
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_NAME, "signup");
 
+    // The type of e-mail to send: HTML or raw e-mail. HTML e-mail templates have the extension .ftl.html and raw e-mails have .ftl.txt.
+    // TemplateTypeEnum.BOTH = Send both, with e-mail clients not capable of showing HTML e-mails falling back to the Text-only version.
+    // TemplateTypeEnum.ANY = Send whatever template is found. Incurs a slight performance overhead due to a try/catch block when looking for the templates.
+    // TemplateTypeEnum.HTML = Only look for and send an HTML e-mail. Will look for signup_body.ftl.html when assembling the body of the e-mail.
+    // TemplateTypeEnum.TEXT = Only look for and send a Text-only e-mail. Will look for signup_body.ftl.txt when assembling the body of the e-mail.
+    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_TYPE, TemplateTypeEnum.BOTH);
+
     // The firstname, lastname and e-mail address of the recipient
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_FIRSTNAME, "Peter");
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_LASTNAME, "Recipientname");
