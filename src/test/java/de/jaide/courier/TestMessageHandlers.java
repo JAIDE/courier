@@ -27,7 +27,6 @@ import org.testng.annotations.Test;
 
 import de.jaide.courier.email.MessageHandlerEMail;
 import de.jaide.courier.email.TemplateTypeEnum;
-import de.jaide.courier.exception.CourierException;
 
 /**
  * Tests the implemented message handlers.
