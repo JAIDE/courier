@@ -213,8 +213,6 @@ public class SmtpConfiguration implements JSONAware {
 
   /**
    * Sets the e-mail that is to be used in the "From:" line of the e-mails that are sent out.
-   * 
-   * @return fromEMail The e-mail address to be set as the sender.
    */
   public void setFromEMail(String fromEMail) {
     this.fromEMail = fromEMail;
@@ -231,8 +229,6 @@ public class SmtpConfiguration implements JSONAware {
 
   /**
    * Sets the full name (firstname lastname) that is to be used in the "From:" line of the e-mails that are sent out.
-   * 
-   * @return fromSenderName The full name to be set as the sender.
    */
   public void setFromSenderName(String fromSenderName) {
     this.fromSenderName = fromSenderName;
