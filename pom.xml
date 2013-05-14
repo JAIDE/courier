@@ -37,8 +37,8 @@
 
   <!-- As of now we're using Github as our SCM -->
   <scm>
-    <connection>scm:git:git@ssh.github.com/JAIDE/gl-ewelding.git</connection>
-    <developerConnection>scm:git:ssh://git@ssh.github.com/JAIDE/courier.git</developerConnection>
+    <connection>scm:git:git@github.com/JAIDE/gl-ewelding.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/JAIDE/courier.git</developerConnection>
     <url>https://github.com/JAIDE/courier</url>
   </scm>
 
