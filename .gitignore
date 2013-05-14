@@ -1,5 +1,6 @@
 .classpath
 .project
 .settings/
+release-information.txt
 target/
 src/main/resources/smtp.json
