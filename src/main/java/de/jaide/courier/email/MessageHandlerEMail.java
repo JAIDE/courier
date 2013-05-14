@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011 the original author or authors.
+ * Copyright 2011-2013 JAIDE GmbH
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -213,7 +213,7 @@ public class MessageHandlerEMail implements MessageHandler {
      */
     for (String key : obligatoryMappingParameters)
       if (!parameters.containsKey(key))
-        throw new CourierException(new MissingParameterException("The parameter '" + key + "' is expected but couldn't be found."));
+        throw new CourierException(new MissingParameterException("The parameter '" + key + "' was expected but couldn't be found."));
 
     /*
      * Now retrieve the obligatory parameters.
@@ -319,14 +319,13 @@ public class MessageHandlerEMail implements MessageHandler {
         try {
           contentText = loadAndProcessTemplate(parameters, MessageHandlerEMail.TEMPLATENAME_SUFFIX_BODY, templateName, false);
         } catch (IOException ioe) {
-          // TODO Remove
-          System.out.println(ioe.getMessage());
         } finally {
           try {
             contentHtml = loadAndProcessTemplate(parameters, MessageHandlerEMail.TEMPLATENAME_SUFFIX_BODY, templateName, true);
           } catch (IOException ioe) {
-            // TODO Remove
-            System.out.println(ioe.getMessage());
+            throw new RuntimeException("Neither the HTML nor the TEXT-only version of the e-mail template '" + templateName
+                + "' could be found. Are you sure they reside in '" + templatePath + "' as '" + templateName + "_body.ftl.html' or '"
+                + templateName + "_body.ftl.txt'?", ioe);
           }
         }
       }

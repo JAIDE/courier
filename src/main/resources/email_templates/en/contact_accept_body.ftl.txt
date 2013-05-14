@@ -1,14 +1,14 @@
-Dear John,
+Dear ${recipientFirstname},
 
-Peter has accepted your contact request. You are now in Peter's business network.
+${memberFirstname} has accepted your contact request. You are now in ${memberFirstname}'s business network.
 
 ---
-Peter Smith
-Developer
-JAIDE GmbH
+${memberFirstname} ${memberLastname}
+${memberTitle}
+${memberCompany}
 ---
 
-View Peter's profile: http://www.salambc.com/members?id=12345
+View ${memberFirstname}'s profile: ${memberProfileLink}
 Go to your contact list: http://www.salambc.com/contacts/
 
 ---
@@ -17,14 +17,14 @@ Having trouble with our website? Check our guide: http://www.salambc.com/guide/
 
 ---
 Dashboard: http://www.salambc.com
-My Profile: http://www.salambc.com/members?id=54321
+My Profile: ${recipientProfileLink}
 My Contacts: http://www.salambc.com/contacts/
 My Messages: http://www.salambc.com/messages/
 
 ---
 You have received this e-mail because you are a member of the Salam Business Club.
 If you wish to customize your e-mail notifications please go to http://www.salambc.com/preferences/notifications/.
-If you want to unsubscribe from all future notifications please go to http://www.salambc.com/preferences/notifications/unsubscribe?id=54321.
+If you want to unsubscribe from all future notifications please go to ${unsubscribeLink}.
 To make sure you receive all e-mails sent from us in your inbox please add info@salambc.com to your address book.
 
 Copyright 2013 Salam Business Club

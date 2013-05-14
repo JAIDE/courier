@@ -1,19 +1,19 @@
 What is this?
 -------------
 
-This library lets you send multi-lingual and Freemarker-templated e-mails using one of many pre-configured SMTP sender accounts.
+This framework lets you send multi-lingual and Freemarker-templated e-mails using any pre-configured SMTP sender account.
 
 With this framework you can:
 
 * Statically specify different sender accounts (name + e-mail address), via a JSON configuration file.
 * ... or overwrite them in your code at run-time, for each call, if needed.
 * Decide, at run-time, that e-mail X should be sent from a valid reply-to address while e-mail Y should be sent from a bouncing address.
-* Use all of Freemarkers templating toolsets to create your HTML or text-only e-mails.
-* You may (optionally) specify the e-mail headers, the subject line and the body - all decorated with Freemarker code, if needed.
-* Send HTML and a fallback Text-only version of an e-mail.
+* Use all of Freemarkers templating tools to create your HTML or text-only e-mails.
+* You may (optionally) specify the e-mail headers, the subject line (obligatory) and the body (obligatory) - all decorated with Freemarker code, if needed.
+* Send HTML and a fallback Text-only version of an e-mail, or just one of them.
 * Add attachments.
 
-All templates may reside in different folders, following a clean and pre-defined filename structure:
+All templates may reside in different folders, following this recommended directory and pre-defined filename structure:
 
     my-email-templates/ (or whatever you want to call this folder)
       en/ (additional directory level, to separate multi-lingual templates from each other)
@@ -27,7 +27,7 @@ All templates may reside in different folders, following a clean and pre-defined
         signup_body.ftl.html (mandatory, if no .txt version present)
         signup_body.ftl.txt (mandatory, if no .html version present)
 
-Just check out the <a href="https://github.com/JAIDE/courier/blob/master/src/test/java/de/jaide/courier/TestMessageHandlers.java">Test case</a> at to see how this thing works and how easy it is to integrate it into your projects!
+Just check out the <a href="https://github.com/JAIDE/courier/blob/master/src/test/java/de/jaide/courier/TestMessageHandlers.java">Test case</a> at to see how this thing works and how easy it is to integrate this framework into your own projects!
 
 Example
 -------
@@ -39,7 +39,7 @@ The following code creates the mapped parameters, containing framework- and temp
     // This is one of the specified senders in the smtp.json configuration file
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_CONFIGURATION_NAME, "info");
 
-    // The path where the Freemarker template files reside
+    // The path where the Freemarker template files for the e-mail that is to be sent out reside, here: English template files
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_PATH, "/email_templates/en/");
 
     // Optional: if you want to use this class' classloader for loading the templates
@@ -48,7 +48,7 @@ The following code creates the mapped parameters, containing framework- and temp
     // Alternatively to the above two commands: give it a directory path to load the templates from
     // mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_PATH_FILE, new File("/var/www/mywebsite/htdocs/email_templates/en/"));
 
-    // The prefix of the template files. They need to look like: PREFIX_headers.ftl, PREFIX_subject.ftl and PREFIX_body.ftl
+    // The prefix of the template files. They need to look like: PREFIX_headers.ftl and PREFIX_subject.ftl as well as PREFIX_body.ftl.html and/or PREFIX_body.ftl.txt
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_TEMPLATE_NAME, "signup");
 
     // The type of e-mail to send: HTML or raw e-mail. HTML e-mail templates have the extension .ftl.html and raw e-mails have .ftl.txt.
@@ -116,7 +116,7 @@ Now send the e-mail, using the `smtp.json` file that resides in the root of your
 
     CourierService.getInstance().getMessageHandlerEMail("/smtp.json").handleMessage(mappedParameters);
 
-This will use the SMTP sender configuration specified as "info" in your smtp.json:
+This will use the SMTP sender configuration specified as "info" in your `smtp.json`:
 
     [{
        "info":{
@@ -155,7 +155,7 @@ This will use the SMTP sender configuration specified as "info" in your smtp.jso
 
 And as you can see the sender is also specified there. If, for any reason, this statically defined sender is not what you want to show up you may override it by specifying a different sender prior to the call:
 
-    // For the next e-mail sending specify a different person as the sender than what was configured in smtp.json
+    // For the next e-mail specify a different person as the sender than what was configured in smtp.json
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_FIRSTNAME, "Peter Other");
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_LASTNAME, "Sendername");
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_SENDER_EMAIL, "peter-other.sendername@mydomain.com");
@@ -171,12 +171,12 @@ Integrating into your code
 * Clone this project.
 * You will need Java 6 and Maven 3 to build the code.
 * Build your code with Maven: `mvn clean package -DskipTests=false`.
-* You will see that the test will fail - it fails because you didn't provide your smtp.json configuration file.
-* Copy the `smtp.json.template` file and save it as `smtp.json` somewhere in your classpath, preferrably at its root so you don't have to modify the provided test class.
-* Adjust the settings in that smtp.json configuration file and run `mvn clean package -DskipTests=false` again.
-* Things should work fine now - now put the resulting .jar file into your application's library folder.
+* You will see that the test will fail - it fails because you didn't provide your `smtp.json` configuration file.
+* Copy the `smtp.json.template` file and save it as `smtp.json` somewhere in your classpath, preferrably at its root so you don't have to modify the provided test class. For Maven that could be `src/main/resources/smtp.json`.
+* Adjust the settings in that `smtp.json` configuration file and run `mvn clean package -DskipTests=false` again.
+* Things should work fine now - now put the resulting `courier-VERSION.jar` file into your application's library folder, in case you're not using Maven in your target application.
 
-If you're using Maven to build your project add this framework's Maven dependencies to your pom.xml:
+If you're using Maven to build your project add this framework's Maven dependencies to your `pom.xml`:
 
     <!-- JAIDE's Courier framework helps with sending out multi-lingual  -->
     <!-- and Freemarker-templated e-mails with dynamic sender addresses. -->
@@ -185,8 +185,6 @@ If you're using Maven to build your project add this framework's Maven dependenc
       <artifactId>courier</artifactId>
       <version>1.3-SNAPSHOT</version>
     </dependency>
-
-* Note: this framework will show up on Maven Central soon - it's not there yet. The above Maven coordinates might not work as of now, so please build the library yourself and deploy it into your local Maven repository until then by running "mvn install".
 
 What's next?
 ------------
@@ -202,7 +200,7 @@ Developed By
 License
 -------
 
-    Copyright 2013 JAIDE GmbH
+    Copyright 2011-2013 JAIDE GmbH
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

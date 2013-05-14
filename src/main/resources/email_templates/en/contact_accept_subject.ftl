@@ -1,1 +1,1 @@
-Peter has accepted your contact request on the Salam Business Club
+${recipientFirstname} has accepted your contact request on the Salam Business Club

@@ -1,3 +1,15 @@
+= 1.4 (2013-05-14)
+
+ * Added proper and now fully-working support for HTML/TEXT e-mail.
+ * Prettified the sample templates.
+ * Exceptions give more info, if TemplateTypeEnum.ANY yields a FileNotFoundException.
+ * Improved the documentation of the Test case.
+ * ATTENTION: if you're using this in a framework that has a pre-bundled version of commons-email.jar somewhere in its folder (such as the Play! Framework 1.2.x) then you will have to replace it with this library's version of commons-email (v1.3.1), simply by overwriting it. 
+
+= 1.3 (2013-05-05)
+
+ * Upgraded to commons-email:1.3.1
+ 
 = 1.2 (2013-04-25)
 
  * Officially open-sourced this framework under an Apache 2.0 license: http://www.apache.org/licenses/LICENSE-2.0
