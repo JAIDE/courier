@@ -69,6 +69,9 @@ public class MessageHandlerEMail implements MessageHandler {
   public static final String MAPPING_PARAM_RECIPIENT_FIRSTNAME = "recipientFirstname";
   public static final String MAPPING_PARAM_RECIPIENT_LASTNAME = "recipientLastname";
   public static final String MAPPING_PARAM_RECIPIENT_EMAIL = "recipientEMail";
+  public static final String MAPPING_PARAM_CC_RECIPIENT_FIRSTNAME = "ccRecipientFirstname";
+  public static final String MAPPING_PARAM_CC_RECIPIENT_LASTNAME = "ccRecipientLastname";
+  public static final String MAPPING_PARAM_CC_RECIPIENT_EMAIL = "ccRecipientEMail";
   public static final String MAPPING_PARAM_SENDER_FIRSTNAME = "senderFirstname";
   public static final String MAPPING_PARAM_SENDER_LASTNAME = "senderLastname";
   public static final String MAPPING_PARAM_SENDER_EMAIL = "senderEMail";
@@ -233,6 +236,9 @@ public class MessageHandlerEMail implements MessageHandler {
     String recipientFirstname = (String) parameters.get(MAPPING_PARAM_RECIPIENT_FIRSTNAME);
     String recipientLastname = (String) parameters.get(MAPPING_PARAM_RECIPIENT_LASTNAME);
     String recipientEMail = (String) parameters.get(MAPPING_PARAM_RECIPIENT_EMAIL);
+    String ccRecipientFirstname = (String) parameters.get(MAPPING_PARAM_CC_RECIPIENT_FIRSTNAME);
+    String ccRecipientLastname = (String) parameters.get(MAPPING_PARAM_CC_RECIPIENT_LASTNAME);
+    String ccRecipientEMail = (String) parameters.get(MAPPING_PARAM_CC_RECIPIENT_EMAIL);
 
     /*
      * The next three parameters are optional, as they might also be specified in the SMTP configuration file. If they are specified they
@@ -355,6 +361,8 @@ public class MessageHandlerEMail implements MessageHandler {
        * Set the parameters that differ for each recipient.
        */
       htmlEmail.addTo(recipientEMail, recipientFirstname + " " + recipientLastname);
+      if ((ccRecipientFirstname != null) && (ccRecipientLastname != null) && (ccRecipientEMail != null))
+        htmlEmail.addCc(ccRecipientEMail, ccRecipientFirstname + " " + ccRecipientLastname);
       htmlEmail.setHeaders(headers);
       htmlEmail.setSubject(subject);
 
