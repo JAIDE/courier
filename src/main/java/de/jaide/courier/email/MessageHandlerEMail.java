@@ -344,8 +344,10 @@ public class MessageHandlerEMail implements MessageHandler {
       HtmlEmail htmlEmail = new HtmlEmail();
       htmlEmail.setHostName(smtpConfiguration.getSmtpHostname());
       htmlEmail.setSmtpPort(smtpConfiguration.getSmtpPort());
-      htmlEmail.setAuthenticator(new DefaultAuthenticator(smtpConfiguration.getUsername(), smtpConfiguration.getPassword()));
-      htmlEmail.setStartTLSEnabled(smtpConfiguration.isTls());
+      if (smtpConfiguration.isTls()) {
+        htmlEmail.setAuthenticator(new DefaultAuthenticator(smtpConfiguration.getUsername(), smtpConfiguration.getPassword()));
+        htmlEmail.setStartTLSEnabled(smtpConfiguration.isTls());
+      }
       htmlEmail.setSSLOnConnect(smtpConfiguration.isSsl());
 
       /*
