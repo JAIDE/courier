@@ -15,12 +15,7 @@
  */
 package de.jaide.courier.email;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -126,7 +121,8 @@ public class MessageHandlerEMail implements MessageHandler {
   /**
    * Loads the SMTP configuration from a JSON file.
    * 
-   * @param smtpConfiguration The SMTP configuration to load. Needs to be an absolute URL, e.g. "/configs/smtp.json" that is loaded from the
+   * @param smtpConfigurationJsonLocation The SMTP configuration to load. Needs to be an absolute URL, e.g. "/configs/smtp.json" that is
+   *          loaded from the
    *          classpath.
    * @throws IOException Thrown, if the SMTP configuration couldn't be read.
    */
@@ -209,7 +205,6 @@ public class MessageHandlerEMail implements MessageHandler {
    * 
    * @see de.jaide.courier.MessageHandler#handleMessage(java.util.Map)
    */
-  @Override
   public void handleMessage(Map<String, Object> parameters) throws CourierException {
     /*
      * Check if the obligatory parameters are there.
@@ -342,6 +337,7 @@ public class MessageHandlerEMail implements MessageHandler {
        */
       SmtpConfiguration smtpConfiguration = (SmtpConfiguration) smtpConfigurations.get(configurationName);
       HtmlEmail htmlEmail = new HtmlEmail();
+      htmlEmail.setCharset("UTF-8");
       htmlEmail.setHostName(smtpConfiguration.getSmtpHostname());
       htmlEmail.setSmtpPort(smtpConfiguration.getSmtpPort());
       if (smtpConfiguration.isTls()) {

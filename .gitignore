@@ -4,3 +4,7 @@
 release-information.txt
 target/
 src/main/resources/smtp.json
+courier.iml
+courier.ipr
+courier.iws
+release.properties

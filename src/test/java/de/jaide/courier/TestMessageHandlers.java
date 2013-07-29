@@ -73,7 +73,7 @@ public class TestMessageHandlers {
     mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_LASTNAME, "Recipientname");
     // Who to send the e-mail to? This variable may be accessed in the templates as "recipientEMail".
     // For testing purposes you should put the actual SMTP-configured sender e-mail address in here
-    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_EMAIL, "peter.sendername@mydomain.com");
+    mappedParameters.put(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_EMAIL, "some-email-address@some-domain.tld");
 
     /*
      * Set the Freemarker-variables for the actual template file. They key names are what they may be referenced as within the Freemarker
@@ -117,6 +117,8 @@ public class TestMessageHandlers {
     /*
      * And now send this e-mail as well.
      */
+    System.out.println("Sending out an e-mail to: " + mappedParameters.get(MessageHandlerEMail.MAPPING_PARAM_RECIPIENT_EMAIL)
+        + " using configuration: " + mappedParameters.get(MessageHandlerEMail.MAPPING_PARAM_CONFIGURATION_NAME));
     CourierService.getInstance().getMessageHandlerEMail("/smtp.json").handleMessage(mappedParameters);
   }
 }
